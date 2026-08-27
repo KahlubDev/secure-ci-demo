@@ -27,3 +27,36 @@ jobs:
 
       - name: Run tests
         run: cargo test
+
+  semgrep:
+    name: Semgrep SAST
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+
+      - name: Install Semgrep
+        run: |
+          python3 -m pip install semgrep
+
+      - name: Run Semgrep
+        run: |
+          semgrep scan \
+            --config security/semgrep/rules.yml \
+            --error
+
+  gitleaks:
+    name: Gitleaks Secret Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cbf0e8d1e
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
