@@ -46,7 +46,7 @@ jobs:
             --config security/semgrep/rules.yml \
             --error
 
-  gitleaks:
+    gitleaks:
     name: Gitleaks Secret Scan
     runs-on: ubuntu-latest
 
@@ -56,7 +56,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install Gitleaks
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/master/scripts/install.sh | sh -s -- -b /usr/local/bin
+
       - name: Run Gitleaks
-        uses: gitleaks/gitleaks-action@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gitleaks dir . \
+            --config .gitleaks.toml \
+            --no-banner
