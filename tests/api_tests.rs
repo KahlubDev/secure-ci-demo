@@ -2,12 +2,12 @@ use axum::{
     body::Body,
     http::{Request, StatusCode},
 };
-use secure_ci_demo::create_app;
+use secure_ci_demo::test_app;
 use tower::ServiceExt;
 
 #[tokio::test]
 async fn health_endpoint_returns_ok() {
-    let app = create_app();
+    let app = test_app();
 
     let response = app
         .oneshot(
@@ -24,7 +24,7 @@ async fn health_endpoint_returns_ok() {
 
 #[tokio::test]
 async fn home_endpoint_returns_success() {
-    let app = create_app();
+    let app = test_app();
 
     let response = app
         .oneshot(

@@ -1,8 +1,8 @@
-use secure_ci_demo::create_app;
+use secure_ci_demo::build_app;
 
 #[tokio::main]
 async fn main() {
-    let app = create_app();
+    let app = build_app().await;
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
         .await
