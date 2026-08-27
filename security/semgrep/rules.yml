@@ -1,0 +1,18 @@
+rules:
+  - id: rust-sql-format-string
+    languages:
+      - rust
+    message: >
+      Possible SQL injection. SQL statements must not be constructed with
+      user-controlled values inside format strings. Use parameterized SQL
+      with .bind(...) instead.
+    severity: ERROR
+    patterns:
+      - pattern-regex: 'format!\s*\(\s*"[^"]*(SELECT|INSERT|UPDATE|DELETE)[^"]*\{[^"]*\}[^"]*"'
+    metadata:
+      category: security
+      technology:
+        - rust
+        - sql
+      confidence: HIGH
+      blocking: true
