@@ -46,7 +46,7 @@ jobs:
             --config security/semgrep/rules.yml \
             --error
 
-    gitleaks:
+  gitleaks:
     name: Gitleaks Secret Scan
     runs-on: ubuntu-latest
 
