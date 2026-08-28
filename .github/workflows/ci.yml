@@ -57,11 +57,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install Gitleaks
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/master/scripts/install.sh | sh -s -- -b /usr/local/bin
-
-      - name: Run Gitleaks
-        run: |
-          gitleaks dir . \
-            --config .gitleaks.toml \
+        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             --no-banner
