@@ -8,3 +8,11 @@ id = "demo-api-key"
 description = "Detects the intentionally planted demo API key"
 regex = '''DEMO_API_KEY=[A-Za-z0-9_-]{20,}'''
 keywords = ["DEMO_API_KEY"]
+
+[allowlist]
+description = "Ignore target directory and common build artifacts"
+paths = [
+  "target/",
+  ".git/",
+  "Cargo.lock"
+]
