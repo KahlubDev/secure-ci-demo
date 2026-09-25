@@ -60,3 +60,16 @@ jobs:
         uses: gitleaks/gitleaks-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  trust-score:
+    name: Kinga Trust Score
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          fetch-depth: 0   # full history required - the score is meaningless without it
+
+      - name: Score latest commit
+        run: python3 security/trust-score/score_commit.py
