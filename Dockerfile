@@ -2,7 +2,7 @@
 # binary in a minimal runtime image. The build toolchain never reaches
 # the final image, so there's nothing extra in it for an attacker to abuse.
 
-FROM rust:1.90-slim AS builder
+FROM rust:1.94-slim AS builder
 WORKDIR /app
 COPY Cargo.toml Cargo.lock ./
 COPY src ./src
