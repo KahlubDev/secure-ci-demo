@@ -38,7 +38,7 @@ jobs:
 
       - name: Install Semgrep
         run: |
-          python3 -m pip install semgrep
+          python3 -m pip install "semgrep==1.179.0"
 
       - name: Run Semgrep
         run: |
@@ -71,7 +71,10 @@ jobs:
         with:
           fetch-depth: 0   # full history required;the score is meaningless without it
 
-      - name: Score latest commit
+      - name: Score every commit in this change
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: python3 security/trust-score/score_commit.py
 
   publish:
